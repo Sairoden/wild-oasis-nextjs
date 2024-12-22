@@ -13,8 +13,6 @@ const josefin = Josefin_Sans({
   display: "swap",
 });
 
-console.log("HELLO", josefin);
-
 export const metadata: Metadata = {
   title: {
     template: "%s / The Wild Oasis",
