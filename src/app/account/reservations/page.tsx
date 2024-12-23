@@ -1,11 +1,16 @@
 // NEXT
 import Link from "next/link";
+import type { Metadata } from "next";
 
 // COMPONENTS
 import { ReservationCard } from "@/components";
 
 // TYPES
 import { Booking } from "@/types";
+
+export const metadata: Metadata = {
+  title: "Reservations",
+};
 
 export default function ReservationsPage() {
   const bookings: Booking[] = [];

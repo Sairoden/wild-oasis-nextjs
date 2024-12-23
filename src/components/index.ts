@@ -6,3 +6,6 @@ export { default as CabinCard } from "./CabinCard";
 export { default as SelectCountry } from "./SelectCountry";
 export { default as DeleteReservation } from "./DeleteReservation";
 export { default as ReservationCard } from "./ReservationCard";
+export { default as SignOutButton } from "./SignOutButton";
+export { default as SignInButton } from "./SignInButton";
+export { default as SideNavigation } from "./SideNavigation";
