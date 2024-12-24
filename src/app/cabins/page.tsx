@@ -4,11 +4,14 @@ import type { Metadata } from "next";
 // COMPONENTS
 import { CabinCard } from "@/components";
 
+// LIB
+import { getCabins } from "@/lib/data-service";
+
 export const metadata: Metadata = {
   title: "Cabins",
 };
 
-type CabinsData = {
+type Cabins = {
   id: number;
   name: string;
   maxCapacity: number;
@@ -17,25 +20,10 @@ type CabinsData = {
   image: string;
 };
 
-export default function CabinsPage() {
-  const cabins: CabinsData[] = [
-    {
-      id: 1,
-      name: "Mountain Retreat",
-      maxCapacity: 4,
-      regularPrice: 200,
-      discount: 20,
-      image: "/images/cabin1.jpg",
-    },
-    {
-      id: 2,
-      name: "Forest Hideaway",
-      maxCapacity: 6,
-      regularPrice: 250,
-      discount: 30,
-      image: "/images/cabin2.jpg",
-    },
-  ];
+export default async function CabinsPage() {
+  const cabins: Cabins[] = await getCabins();
+
+  console.log("CABINS STARTING", cabins);
 
   return (
     <div>

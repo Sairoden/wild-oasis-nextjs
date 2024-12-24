@@ -1,6 +1,9 @@
 // LIBRARIES
 import { eachDayOfInterval } from "date-fns";
 
+// LIB
+import { supabase } from "./supabase";
+
 /////////////
 // GET
 
