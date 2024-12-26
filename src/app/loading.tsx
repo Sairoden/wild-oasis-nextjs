@@ -1,3 +1,6 @@
-export default function Loading() {
-  return <p>Loading DATA...</p>;
+// COMPONENTS
+import { Spinner } from "@/components";
+
+export default function RootLoading() {
+  return <Spinner />;
 }

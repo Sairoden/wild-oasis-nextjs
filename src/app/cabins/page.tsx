@@ -1,30 +1,17 @@
+// REACT
+import { Suspense } from "react";
+
 // NEXT
 import type { Metadata } from "next";
 
 // COMPONENTS
-import { CabinCard } from "@/components";
-
-// LIB
-import { getCabins } from "@/lib/data-service";
+import { CabinList, Spinner } from "@/components";
 
 export const metadata: Metadata = {
   title: "Cabins",
 };
 
-type Cabins = {
-  id: number;
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  image: string;
-};
-
-export default async function CabinsPage() {
-  const cabins: Cabins[] = await getCabins();
-
-  console.log("CABINS STARTING", cabins);
-
+export default function CabinsPage() {
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -40,13 +27,9 @@ export default async function CabinsPage() {
         Welcome to paradise.
       </p>
 
-      {cabins?.length > 0 && (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-          {cabins?.map(cabin => (
-            <CabinCard key={cabin.id} cabin={cabin} />
-          ))}
-        </div>
-      )}
+      <Suspense fallback={<Spinner />}>
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
