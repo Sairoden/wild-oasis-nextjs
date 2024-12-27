@@ -1,9 +1,22 @@
 // NEXT
 import Image from "next/image";
+// import type { Metadata } from "next";
 
 // STYLES
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
+
+// LIB
 import { getCabin } from "@/lib/data-service";
+
+// export const metadata: Metadata = {
+//   title: "Cabin",
+// };
+
+export const generateMetadata = async ({ params }: CabinProps) => {
+  const { cabinId } = await params;
+  const { name } = await getCabin(cabinId);
+  return { title: `Cabin ${name}` };
+};
 
 interface CabinProps {
   params: {
