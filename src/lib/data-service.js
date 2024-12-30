@@ -1,3 +1,6 @@
+// NEXT
+import { notFound } from "next/navigation";
+
 // LIBRARIES
 import { eachDayOfInterval } from "date-fns";
 
@@ -19,6 +22,7 @@ export async function getCabin(id) {
 
   if (error) {
     console.error(error);
+    notFound();
   }
 
   return data;

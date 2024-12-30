@@ -1,16 +1,15 @@
 // NEXT
 import Image from "next/image";
-// import type { Metadata } from "next";
 
 // STYLES
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 
 // LIB
-import { getCabin } from "@/lib/data-service";
+import { getCabin, getCabins } from "@/lib/data-service";
 
-// export const metadata: Metadata = {
-//   title: "Cabin",
-// };
+interface CabinProps {
+  params: Promise<{ cabinId: string }>;
+}
 
 export const generateMetadata = async ({ params }: CabinProps) => {
   const { cabinId } = await params;
@@ -18,13 +17,12 @@ export const generateMetadata = async ({ params }: CabinProps) => {
   return { title: `Cabin ${name}` };
 };
 
-interface CabinProps {
-  params: {
-    cabinId: string;
-  };
-}
+export const generateStaticParams = async () => {
+  const cabins = await getCabins();
+  return cabins?.map(cabin => ({ cabinId: String(cabin.id) }));
+};
 
-export default async function Cabin({ params }: CabinProps) {
+export default async function CabinPage({ params }: CabinProps) {
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
   const { name, maxCapacity, image, description } = cabin;
@@ -56,6 +54,7 @@ export default async function Cabin({ params }: CabinProps) {
                 guests
               </span>
             </li>
+
             <li className="flex gap-3 items-center">
               <MapPinIcon className="h-5 w-5 text-primary-600" />
               <span className="text-lg">
@@ -63,6 +62,7 @@ export default async function Cabin({ params }: CabinProps) {
                 <span className="font-bold">Dolomites</span> (Italy)
               </span>
             </li>
+
             <li className="flex gap-3 items-center">
               <EyeSlashIcon className="h-5 w-5 text-primary-600" />
               <span className="text-lg">

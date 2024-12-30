@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 // COMPONENTS
 import { CabinList, Spinner } from "@/components";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Cabins",
 };
