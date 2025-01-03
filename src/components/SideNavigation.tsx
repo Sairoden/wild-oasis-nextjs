@@ -1,3 +1,5 @@
+"use client";
+
 // NEXT
 import Link from "next/link";
 
@@ -10,6 +12,7 @@ import {
 
 // COMPONENTS
 import { SignOutButton } from "@/components";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   {
@@ -30,12 +33,19 @@ const navLinks = [
 ];
 
 export default function SideNavigation() {
+  const pathname = usePathname();
+
   return (
     <nav className="border-r border-primary-900">
       <ul className="flex flex-col gap-2 h-full text-lg">
         {navLinks.map(link => (
           <li key={link.name}>
-            <Link href={link.href}>
+            <Link
+              href={link.href}
+              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
+                pathname === link.href ? "bg-primary-900" : ""
+              }`}
+            >
               {link.icon} <span>{link.name}</span>
             </Link>
           </li>

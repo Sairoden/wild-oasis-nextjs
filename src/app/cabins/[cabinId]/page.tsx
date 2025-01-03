@@ -4,6 +4,9 @@ import Image from "next/image";
 // STYLES
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
 
+// COMPONENTS
+import { TextExpander } from "@/components";
+
 // LIB
 import { getCabin, getCabins } from "@/lib/data-service";
 
@@ -34,7 +37,8 @@ export default async function CabinPage({ params }: CabinProps) {
           <Image
             fill
             className="object-cover"
-            src={image}
+            src={image || "/no-image.jpg"}
+            sizes="100%"
             alt={`Cabin ${name}`}
           />
         </div>
@@ -44,7 +48,9 @@ export default async function CabinPage({ params }: CabinProps) {
             Cabin {name}
           </h3>
 
-          <p className="text-lg text-primary-300 mb-10">{description}</p>
+          <p className="text-lg text-primary-300 mb-10">
+            <TextExpander>{description}</TextExpander>
+          </p>
 
           <ul className="flex flex-col gap-4 mb-7">
             <li className="flex gap-3 items-center">

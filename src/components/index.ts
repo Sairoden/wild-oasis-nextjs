@@ -12,3 +12,4 @@ export { default as SignInButton } from "./SignInButton";
 export { default as SideNavigation } from "./SideNavigation";
 export { default as Spinner } from "./Spinner";
 export { default as SpinnerMini } from "./SpinnerMini";
+export { default as TextExpander } from "./TextExpander";

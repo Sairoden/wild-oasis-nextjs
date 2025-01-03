@@ -25,7 +25,8 @@ export default function CabinCard({ cabin }: CabinCardProps) {
     <div className="flex border-primary-800 border">
       <div className="flex-1 relative">
         <Image
-          src={image}
+          src={image || "/no-image.jpg"}
+          sizes="100%"
           alt={`Cabin ${name}`}
           className="border-r border-primary-800 object-cover"
           fill
