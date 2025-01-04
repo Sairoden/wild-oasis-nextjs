@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 
 // COMPONENTS
-import { CabinList, Spinner } from "@/components";
+import { CabinList, Spinner, Filter } from "@/components";
 
 export const revalidate = 3600;
 
@@ -13,7 +13,14 @@ export const metadata: Metadata = {
   title: "Cabins",
 };
 
-export default function CabinsPage() {
+interface CabinsPageProps {
+  searchParams: Promise<{ capacity?: string }>;
+}
+
+export default async function CabinsPage({ searchParams }: CabinsPageProps) {
+  const params = await searchParams;
+  const filter = params?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -29,8 +36,12 @@ export default function CabinsPage() {
         Welcome to paradise.
       </p>
 
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
