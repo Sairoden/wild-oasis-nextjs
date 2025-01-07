@@ -1,3 +1,8 @@
+"use client";
+
+// CONTEXT
+import { useReservationContext } from "@/context";
+
 interface ReservationFormProps {
   cabin: {
     id: string;
@@ -9,6 +14,10 @@ interface ReservationFormProps {
 }
 
 export default function ReservationForm({ cabin }: ReservationFormProps) {
+  const { range } = useReservationContext();
+
+  console.log("MY RANGE", range);
+
   const { maxCapacity } = cabin;
 
   return (
@@ -27,6 +36,10 @@ export default function ReservationForm({ cabin }: ReservationFormProps) {
           <p>{user.name}</p>
         </div> */}
       </div>
+
+      <p>
+        {String(range.from)} to {String(range.to)}
+      </p>
 
       <form className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col">
         <div className="space-y-2">

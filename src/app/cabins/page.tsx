@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 
 // COMPONENTS
-import { CabinList, Spinner, Filter } from "@/components";
+import { CabinList, Spinner, Filter, ReservationReminder } from "@/components";
 
 export const revalidate = 3600;
 
@@ -42,6 +42,7 @@ export default async function CabinsPage({ searchParams }: CabinsPageProps) {
 
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
