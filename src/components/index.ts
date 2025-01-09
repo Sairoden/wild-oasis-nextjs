@@ -20,3 +20,4 @@ export { default as DateSelector } from "./DateSelector";
 export { default as Reservation } from "./Reservation";
 export { default as Cabin } from "./Cabin";
 export { default as ReservationReminder } from "./ReservationReminder";
+export { default as LoginMessage } from "./LoginMessage";
