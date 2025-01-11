@@ -8,8 +8,6 @@ import Image from "next/image";
 export default async function Navigation() {
   const session = await auth();
 
-  console.log("MY SESSION", session);
-
   return (
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
