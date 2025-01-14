@@ -14,6 +14,9 @@ import { DeleteReservation } from "@/components";
 // TYPES
 import { Booking } from "@/types";
 
+// LIB
+import { getCabin } from "@/lib/data-service";
+
 export const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
@@ -23,7 +26,9 @@ interface ReservationCardProps {
   booking: Booking;
 }
 
-export default function ReservationCard({ booking }: ReservationCardProps) {
+export default async function ReservationCard({
+  booking,
+}: ReservationCardProps) {
   const {
     id,
     startDate,
@@ -32,8 +37,11 @@ export default function ReservationCard({ booking }: ReservationCardProps) {
     totalPrice,
     numGuests,
     created_at,
-    cabins: { name, image },
+    cabinId,
   } = booking;
+
+  const cabin = await getCabin(cabinId);
+  const { name, image } = cabin;
 
   return (
     <div className="flex border border-primary-800">
@@ -84,15 +92,19 @@ export default function ReservationCard({ booking }: ReservationCardProps) {
       </div>
 
       <div className="flex flex-col border-l border-primary-800 w-[100px]">
-        <Link
-          href={`/account/reservations/edit/${id}`}
-          className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
-        >
-          <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
-          <span className="mt-1">Edit</span>
-        </Link>
+        {isPast(new Date(startDate)) && (
+          <>
+            <Link
+              href={`/account/reservations/edit/${id}`}
+              className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 border-b border-primary-800 flex-grow px-3 hover:bg-accent-600 transition-colors hover:text-primary-900"
+            >
+              <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
+              <span className="mt-1">Edit</span>
+            </Link>
 
-        <DeleteReservation bookingId={id} />
+            <DeleteReservation bookingId={id} />
+          </>
+        )}
       </div>
     </div>
   );
