@@ -20,4 +20,5 @@ export { default as Reservation } from "./Reservation";
 export { default as Cabin } from "./Cabin";
 export { default as ReservationReminder } from "./ReservationReminder";
 export { default as LoginMessage } from "./LoginMessage";
-export { default as SubmitButton } from "./Button";
+export { default as SubmitButton } from "./SubmitButton";
+export { default as ReservationList } from "./ReservationList";

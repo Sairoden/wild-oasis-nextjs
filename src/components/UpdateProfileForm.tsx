@@ -10,7 +10,7 @@ import Image from "next/image";
 import { updateGuest } from "@/lib/actions";
 
 // COMPONENTS
-import SubmitButton from "./Button";
+import { SubmitButton } from "./index";
 
 export default function UpdateProfileForm({
   children,

@@ -4,8 +4,8 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
 
 // LIB
-import { deleteReservation } from "@/lib/actions";
 import { useTransition } from "react";
+import { deleteReservation } from "@/lib/actions";
 
 // COMPONENTS
 import SpinnerMini from "./SpinnerMini";

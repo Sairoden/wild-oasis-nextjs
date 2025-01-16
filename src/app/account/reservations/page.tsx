@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 // COMPONENTS
-import { ReservationCard } from "@/components";
+import { ReservationList } from "@/components";
 
 // TYPES
 import { Booking } from "@/types";
@@ -34,11 +34,7 @@ export default async function ReservationsPage() {
           </Link>
         </p>
       ) : (
-        <ul className="space-y-6">
-          {bookings.map((booking: Booking) => (
-            <ReservationCard booking={booking} key={booking.id} />
-          ))}
-        </ul>
+        <ReservationList bookings={bookings} />
       )}
     </div>
   );
