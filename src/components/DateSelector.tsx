@@ -1,34 +1,68 @@
 "use client";
 
 // LIBRARIES
-import { DayPicker } from "react-day-picker";
+import { DayPicker, DateRange } from "react-day-picker";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
 
-// CONTEXT
+// CONTEXTS
 import { useReservationContext } from "@/context";
 
 // STYLES
 import "react-day-picker/dist/style.css";
 
 interface DateSelectorProps {
-  bookedDates: Date[];
+  bookedDates: DateRange[];
   settings: {
     minBookingsLength: number;
     maxBookingsLength: number;
     maxGuestsPerBooking: number;
     breakfastPrice: number;
   };
+  cabin: {
+    regularPrice: number;
+    discount: number;
+  };
 }
 
-export default function DateSelector({ settings }: DateSelectorProps) {
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
+function isAlreadyBooked(range: DateRange, datesArr: DateRange[]) {
+  return (
+    range.from &&
+    range.to &&
+    datesArr.some(
+      date =>
+        (date.from &&
+          date.to &&
+          isWithinInterval(date.from, {
+            start: range.from!,
+            end: range.to!,
+          })) ||
+        (date.from &&
+          date.to &&
+          isWithinInterval(date.to, { start: range.from!, end: range.to! }))
+    )
+  );
+}
 
-  const { minBookingsLength, maxBookingsLength } = settings;
-
+export default function DateSelector({
+  settings,
+  bookedDates,
+  cabin,
+}: DateSelectorProps) {
   const { range, handleResetRange, handleSelectRange } =
     useReservationContext();
+
+  const displayRange = isAlreadyBooked(range, bookedDates) ? undefined : range;
+
+  const { regularPrice, discount } = cabin;
+  const { minBookingsLength, maxBookingsLength } = settings;
+  const numNights =
+    range.to && range.from ? differenceInDays(range.to, range.from) : 0;
+  const cabinPrice = numNights * (regularPrice - discount);
 
   return (
     <div className="flex flex-col justify-between">
@@ -43,7 +77,14 @@ export default function DateSelector({ settings }: DateSelectorProps) {
         captionLayout="dropdown"
         numberOfMonths={2}
         onSelect={handleSelectRange}
-        selected={range}
+        selected={displayRange}
+        disabled={curDate =>
+          isPast(curDate) ||
+          bookedDates.some(
+            date =>
+              isSameDay(date.from!, curDate) || isSameDay(date.to!, curDate)
+          )
+        }
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">

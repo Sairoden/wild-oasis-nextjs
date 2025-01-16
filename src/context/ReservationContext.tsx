@@ -29,6 +29,7 @@ export function ReservationProvider({ children }: { children: ReactNode }) {
   };
 
   const value = { range, handleResetRange, handleSelectRange };
+
   return (
     <ReservationContext.Provider value={value}>
       {children}
