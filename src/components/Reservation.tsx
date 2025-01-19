@@ -12,13 +12,17 @@ interface ReservationProps {
     maxCapacity: number;
     image: string;
     description: string;
+    regularPrice: number;
+    discount: number;
   };
 }
 
 export default async function Reservation({ cabin }: ReservationProps) {
   const [settings, bookedDates] = await Promise.all([
     getSettings(),
-    getBookedDatesByCabinId(cabin.id),
+    getBookedDatesByCabinId(cabin.id).then(dates =>
+      dates.map(date => ({ from: date }))
+    ),
   ]);
 
   const session = await auth();
